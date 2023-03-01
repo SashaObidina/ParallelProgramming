@@ -1,0 +1,41 @@
+sinfo
+salloc -N1 -p tornado-k40 -t 00:40:00
+squeue
+scancel
+logout
+exit
+
+Загрузка на СК:
+pscp -P 22 -i C:\Users\Public\superkey.ppk -r "C:\Users\Public\sem1\GaussPthread.cpp" tm5u10@login1.hpc.spbstu.ru:pthread.cpp
+
+Модули:
+module purge
+module add compiler/gcc/11.2.0
+module add mpi/openmpi/4.1.3/gcc/11
+module add python/3.9
+module add library/gsl/2.5.0
+
+Генерация матрицы:
+python3 gen.py 10
+
+C/MPI:
+mpicc mpi_c.cpp -o mpi_c
+mpirun -np 4 ./mpi_c
+
+OpenMP:
+gcc -fopenmp openmp.cpp -o openmp
+gcc -g -o openmp openmp.cpp -lstdc++ -fopenmp
+./openmp 3
+
+Pthread:
+gcc pthread.cpp -o pthread -lpthread
+./pthread 3
+
+Python/MPI:
+mpirun -n 4 python3 mpi_py.py
+
+Тестирование:
+python3 check.py x_pthreads.txt
+python3 check.py x_openmp.txt
+python3 check.py x_mpi_c.txt
+python3 check.py x_mpi_py.txt
