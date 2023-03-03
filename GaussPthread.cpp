@@ -6,8 +6,8 @@
 #include <sys/time.h>
 #include <pthread.h>
 
-int size; //размер матрицы
-int threads_count; //количество потоков
+int size; //Г°Г Г§Г¬ГҐГ° Г¬Г ГІГ°ГЁГ¶Г»
+int threads_count; //ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЇГ®ГІГ®ГЄГ®Гў
 FILE* fp1;
 FILE* fp2;
 
@@ -44,9 +44,9 @@ int main(int argc, char* argv[]) {
     int row_n, num, row_i, row_j;
     double scaling;
 
-    a = (double*)malloc(sizeof(*a) * size * size); // Матрица коэффициентов
-    b = (double*)malloc(sizeof(*b) * size); // Столбец свободных членов
-    x = (double*)malloc(sizeof(*x) * size); // Неизвестные
+    a = (double*)malloc(sizeof(*a) * size * size); // ГЊГ ГІГ°ГЁГ¶Г  ГЄГ®ГЅГґГґГЁГ¶ГЁГҐГ­ГІГ®Гў
+    b = (double*)malloc(sizeof(*b) * size); // Г‘ГІГ®Г«ГЎГҐГ¶ Г±ГўГ®ГЎГ®Г¤Г­Г»Гµ Г·Г«ГҐГ­Г®Гў
+    x = (double*)malloc(sizeof(*x) * size); // ГЌГҐГЁГ§ГўГҐГ±ГІГ­Г»ГҐ
 
     fp1 = fopen("m.txt", "r");
     for (i = 0; i < size; i++)
@@ -59,7 +59,7 @@ int main(int argc, char* argv[]) {
         }
     fclose(fp1);
 
-    //Заполняем вектор x
+    //Г‡Г ГЇГ®Г«Г­ГїГҐГ¬ ГўГҐГЄГІГ®Г° x
     for (i = 0; i < size; i++) {
         x[i] = 0;
     }
@@ -97,14 +97,14 @@ int main(int argc, char* argv[]) {
    
     gettimeofday(&end_time, NULL);
 
-    //запись результатов в файл
+    //Г§Г ГЇГЁГ±Гј Г°ГҐГ§ГіГ«ГјГІГ ГІГ®Гў Гў ГґГ Г©Г«
     fp2 = fopen("x_pthreads.txt", "w");
     for (i = 0; i < size; i++) {
         fprintf(fp2, "%lf ", x[i]);
     }
     fclose(fp2);
     
-    time_use = (end_time.tv_sec - end_time.tv_sec) * 1000000 + (end_time.tv_usec - start_time.tv_usec);
+    time_use = (end_time.tv_sec - start_time.tv_sec) * 1000000 + (end_time.tv_usec - start_time.tv_usec);
 
     printf("Time:%lfs\n", time_use / 1000000);
 
